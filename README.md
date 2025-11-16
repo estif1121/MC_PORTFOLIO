@@ -76,106 +76,17 @@ Si no quieres liarte aplicando los cambios tú mismo, puedo ayudarte con:
 
 Estoy trabajando en un **plugin de auditoría para servidores Minecraft** que:
 
-- Revisa grupos y permisos en busca de:
-  - Uso del comodín `*`.
-  - Comandos de consola accesibles a rangos que no deberían.
-  - Permisos peligrosos en rangos “bajos”.
-- Analiza la lista de plugins para detectar elementos sospechosos o configuraciones poco seguras.
-- Genera un **informe automático** en consola y archivo.
-
-En cuanto tenga una versión estable, la publicaré aquí en este mismo repositorio.
+- Revisa fallos y posibles vulnerabilidades en tu servidor de Minecraft
+- Manda los resultados directamente a la página web
 
 ---
 
-## 📂 Casos prácticos (ejemplos reales / de laboratorio)
-
-Estos casos están basados en experiencias reales y en entornos de pruebas que utilizo para detectar problemas típicos en servidores pequeños/medianos.
-
-### Caso 1 – Rango VIP con acceso total al servidor
-
-**Situación:**
-
-Servidor survival con rangos `default`, `vip`, `vip+` y `staff`.  
-Los rangos VIP tenían muchos permisos para “dar más cosas” a los jugadores.
-
-**Problema detectado:**
-
-El rango `vip` tenía el permiso `*`, lo que le daba **control total del servidor**:
-- Acceso a comandos de administración.
-- Capacidad de dar items ilimitados.
-- Posibilidad de usar comandos peligrosos de plugins.
-
-**Solución aplicada:**
-
-- Eliminación del permiso `*` del rango VIP.
-- Creación de una lista controlada de permisos VIP centrada en:
-  - Comandos cosméticos.
-  - Comandos de comodidad (homes extra, kits, etc.).
-- Revisión de la estructura de grupos en LuckPerms para evitar herencias peligrosas.
-
-**Resultado:**
-
-Se eliminó el riesgo de que un jugador con rango VIP pudiera, de forma intencionada o por error, tomar control completo del servidor.
-
----
-
-### Caso 2 – Servidor en offline-mode expuesto directamente
-
-**Situación:**
-
-Servidor creativo accesible por IP pública y configurado con `online-mode=false` porque aceptaba jugadores no premium.
-
-**Problema detectado:**
-
-Cualquier usuario podía **suplantar el nombre de otro jugador** (incluso del owner) usando un launcher no premium, entrando con su nick.
-
-**Solución recomendada:**
-
-- Implementación de un proxy (por ejemplo, Velocity) con:
-  - Autenticación segura.
-  - Protección contra suplantación.
-- Bloqueo del acceso directo al backend mediante firewall.
-- Mantener el backend en `offline-mode`, pero protegido tras el proxy.
-
-**Resultado:**
-
-Se evitó el riesgo de robos de cuenta, rangos y griefs masivos producidos por suplantación de identidades.
-
----
-
-### Caso 3 – Jugadores viendo `/plugins` y `/version`
-
-**Situación:**
-
-En un servidor survival, los jugadores del grupo `default` podían usar `/plugins` y `/version`.
-
-**Riesgo:**
-
-- Cualquier jugador podía ver:
-  - Lista completa de plugins instalados.
-  - Versión exacta del servidor.
-- Esto facilita que atacantes busquen **exploits públicos** para esas versiones específicas de plugins o del servidor.
-
-**Solución aplicada:**
-
-- Denegar permisos:
-  - `bukkit.command.plugins`
-  - `bukkit.command.version`
-  al grupo `default`.
-- Mantener estos comandos solo accesibles para rangos de administración.
-
-**Resultado:**
-
-Se redujo la cantidad de información sensible disponible para jugadores normales y potenciales atacantes.
-
----
 
 ## ⚙️ Cómo trabajo
 
 1. **Contacto inicial**  
    Hablamos por Discord y me cuentas:
    - Tipo de servidor (survival, skyblock, network, etc.)
-   - Si es premium, no premium o mixto.
    - Qué problemas te preocupan más (griefs, rangos, exploits, etc.).
 
 2. **Autorización**  
@@ -188,7 +99,7 @@ Se redujo la cantidad de información sensible disponible para jugadores normale
    - Analizo grupos y permisos (LuckPerms u otro sistema).
    - Reviso la lista de plugins instalados.
    - Compruebo configuraciones generales (modo online/offline, comandos accesibles, etc.).
-   - Si está disponible, ejecuto mi plugin de auditoría.
+   - **Próximamente**, ejecuto mi plugin de seguridad.
 
 4. **Informe de resultados**  
    Entrego un informe con:
@@ -207,13 +118,13 @@ Se redujo la cantidad de información sensible disponible para jugadores normale
 
 ## 💰 Precios orientativos
 
-> Los precios pueden variar según el tamaño del servidor y la complejidad de la configuración.  
+> Los precios aquí mostrados son únicamente orientativos y pueden variar dependiendo en tamaño del servidor, necesidades, etc.  
 > Para cualquier caso concreto, pregúntame por Discord y te doy presupuesto sin compromiso.
 
 **Auditoría básica** – desde **10–15 €**
 
 - Revisión rápida de permisos y plugins.
-- Informe corto con los fallos más importantes y cómo arreglarlos.
+- Informe corto con los fallos más importantes.
 
 **Auditoría completa** – desde **25–40 €**
 
@@ -226,10 +137,9 @@ Se redujo la cantidad de información sensible disponible para jugadores normale
 - Reconfiguración básica de plugins clave.
 - Asesoría en estructura de rangos y staff.
 
-**Métodos de pago habituales:**
+**Método de pago:**
 
-- Bizum (si estás en España).
-- PayPal.
+- Actualmente solamente acepto pagos mediante **PayPal**
 
 ---
 
@@ -237,8 +147,8 @@ Se redujo la cantidad de información sensible disponible para jugadores normale
 
 Si te interesa una auditoría o tienes dudas, puedes contactarme por:
 
-- **Discord:** `TUUSUARIO#0000`
-- *(Opcional)* **Email:** `tucorreo@loquesea.com`
+- **Discord:** `estif1121`
+
 
 Cuando me contactes, puedes mandarme esta info para ir más rápido:
 
